@@ -198,6 +198,25 @@ func defaultLog() *Log {
 	}
 }
 
+func StrToConst(lvl string) (byte, error) {
+	switch strings.ToUpper(lvl) {
+	case "FATAL":
+		return LOGFATAL, nil
+	case "ERR":
+		return LOGERR, nil
+	case "WARN":
+		return LOGWARN, nil
+	case "INFO":
+		return LOGINFO, nil
+	case "DEBUG":
+		return LOGDEBUG, nil
+	case "TRACE":
+		return LOGTRACE, nil
+	default:
+		return 0, ErrInvalidLogLevel
+	}
+}
+
 func lvlStr(lvl byte) string {
 	switch lvl {
 	case LOGFATAL:

@@ -96,3 +96,19 @@ func TestLogFatalFPanics(t *testing.T){
 	log.Fatalf("testing log fatal")
 }
 
+func TestLogStrToConst(t *testing.T) {
+	payloadV := [...]string{
+		"TRACE", "DEBUG", "INFO", "WARN", "ERR", "FATAL",
+	}
+	expectedV := [...]byte{
+		LOGTRACE, LOGDEBUG, LOGINFO, LOGWARN, LOGERR, LOGFATAL,
+	}
+
+	for i, p := range payloadV {
+		r, err := StrToConst(p)
+		if err != nil { t.Fatal(err, "at index", i) }
+		if r != expectedV[i] {
+			t.Fatal("unexpected result", r, "at index", i)
+		}
+	}
+}
